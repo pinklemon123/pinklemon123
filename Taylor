@@ -1,0 +1,45 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("请输入x的值:");
+        double x = Convert.ToDouble(Console.ReadLine());
+
+        Console.WriteLine("请输入Taylor展开的项数:");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        double sinX = CalculateSinTaylor(x, n);
+
+        Console.WriteLine($"sin({x}) 的Taylor展开前{n}项和为: {sinX}");
+    }
+
+    static double CalculateSinTaylor(double x, int n)
+    {
+        double sum = 0.0;
+        for (int i = 0; i < n; i++)
+        {
+            double term = Math.Pow(x, 2 * i + 1) / Factorial(2 * i + 1);
+            if (i % 2 == 0)
+            {
+                sum += term; // 奇数项为正
+            }
+            else
+            {
+                sum -= term; // 偶数项为负
+            }
+        }
+        return sum;
+    }
+
+    static long Factorial(int n)
+    {
+        long result = 1;
+        for (int i = 2; i <= n; i++)
+        {
+            result *= i;
+        }
+        return result;
+    }
+}
